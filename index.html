@@ -4,12 +4,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Soulayman | Développeur Web</title>
+  <title> pixelBluider</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
     :root {
-      --bg1: #0f0c29;
-      --bg2: #302b63;
+      --bg1: #230ee4;
+      --bg2: #0686ee;
       --bg3: #24243e;
       --accent: #00ffc3;
       --text: #ffffff;
@@ -132,7 +132,7 @@
       border: none;
       border-radius: 8px;
       background: #333;
-      color: #fff;
+      color: #f7f4f4;
     }
 
     form input:focus, form textarea:focus {
@@ -196,6 +196,7 @@
       <a href="#definition"><i class="fas fa-code icon"></i>Définition</a>
       <a href="#about"><i class="fas fa-user icon"></i>À propos</a>
       <a href="#features"><i class="fas fa-cogs icon"></i>Fonctionnalités</a>
+      <a href="contact"><i class="fas fa-cogs icon"></i>conecter moi</a>                                                  </a>
       
     </nav>
   </header>
@@ -251,11 +252,59 @@
     </div>
   </section>
 
- 
-
+    <section id="contact"> 
+     <div class="card"> 
+       <h2>conecter moi</h2>
+      <ul>
+        <li>my phon:+212 651-149570</li>
+        <li>gmail:soulaymanbag999@gmail.com</li>
+        <li>facebook:</li>
+        <li>instagram:</li>
+      </ul>
+     </div>
+ </section>
   <footer>
-    &copy; 2025 Soulayman. Tous droits réservés.
+    pixelBluider 
   </footer>
 
 </body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>تحريك السيف مع الماوس</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background-color: black;
+    }
+    #sword {
+      position: absolute;
+      width: 80px;
+      pointer-events: none;
+      transition: transform 0.05s linear;
+    }
+  </style>
+</head>
+<body>
+  <img id="sword" src="téléchargement.jpeg" alt="سيف ماين كرافت">
+
+  <script>
+    const sword = document.getElementById('sword');
+
+    document.addEventListener('mousemove', (e) => {
+      sword.style.left = (e.pageX - 40) + 'px';
+      sword.style.top = (e.pageY - 40) + 'px';
+    });
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+
 </html>
