@@ -1,310 +1,434 @@
-
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title> pixelBluider</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  <style>
-    :root {
-      --bg1: #230ee4;
-      --bg2: #0686ee;
-      --bg3: #24243e;
-      --accent: #00ffc3;
-      --text: #ffffff;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>موقع متطور خيالي - الإبداع العلمي</title>
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Segoe UI', sans-serif;
-      scroll-behavior: smooth;
-    }
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
 
-    body {
-      background: linear-gradient(-45deg, var(--bg1), var(--bg2), var(--bg3));
-      background-size: 400% 400%;
-      animation: bgAnimation 10s ease infinite;
-      color: var(--text);
-    }
+<style>
+  /* RESET */
+  * {
+    margin: 0; padding: 0; box-sizing: border-box;
+    scroll-behavior: smooth;
+  }
+  body {
+    font-family: 'Cairo', sans-serif;
+    background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+    color: #eee;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
 
-    @keyframes bgAnimation {
-      0% {background-position: 0% 50%;}
-      50% {background-position: 100% 50%;}
-      100% {background-position: 0% 50%;}
-    }
+  /* خلفية متغيرة مع حركة ضوء */
+  body::before {
+    content: "";
+    position: fixed;
+    top: -50%; left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at center, rgba(255,255,255,0.15), transparent 70%);
+    animation: pulseLight 10s infinite alternate ease-in-out;
+    pointer-events: none;
+    z-index: -1;
+  }
+  @keyframes pulseLight {
+    0% {transform: translate(0,0) scale(1);}
+    50% {transform: translate(30px, 30px) scale(1.1);}
+    100% {transform: translate(0,0) scale(1);}
+  }
 
-    header {
-      text-align: center;
-      padding: 30px 20px;
-      background: rgba(0, 0, 0, 0.4);
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
+  /* نافبار */
+  header {
+    position: fixed;
+    top: 0; right: 0; left: 0;
+    background: rgba(10, 10, 30, 0.85);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.7);
+    z-index: 1000;
+  }
+  nav {
+    max-width: 1100px;
+    margin: auto;
+    padding: 15px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  nav .logo {
+    font-weight: 900;
+    font-size: 2rem;
+    letter-spacing: 2.5px;
+    color: #fdbb2d;
+    user-select: none;
+    cursor: default;
+  }
 
-    header h1 {
-      font-size: 2.5em;
-      color: var(--accent);
-      animation: typewriter 4s steps(30) 1 normal both, blinkTextCursor 500ms steps(30) infinite normal;
-      white-space: nowrap;
-      overflow: hidden;
-      border-right: 2px solid var(--accent);
-    }
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 18px;
+  }
+  nav ul li a {
+    color: #eee;
+    font-weight: 600;
+    font-size: 1.1rem;
+    padding: 10px 20px;
+    border-radius: 30px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    user-select: none;
+  }
+  nav ul li a:hover,
+  nav ul li a.active {
+    background: #fdbb2d;
+    color: #1a2a6c;
+    box-shadow: 0 0 12px #fdbb2d;
+    font-weight: 700;
+  }
 
-    @keyframes typewriter {
-      from { width: 0; }
-      to { width: 100%; }
-    }
+  /* هامبرغر للهواتف */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .hamburger div {
+    width: 28px;
+    height: 3.5px;
+    background: #fdbb2d;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+  }
 
-    @keyframes blinkTextCursor {
-      from { border-right-color: var(--accent); }
-      to { border-right-color: transparent; }
+  /* قائمة الهاتف المنبثقة */
+  @media (max-width: 900px) {
+    nav ul {
+      position: fixed;
+      top: 60px;
+      right: 0;
+      background: rgba(10,10,30,0.95);
+      width: 240px;
+      height: calc(100vh - 60px);
+      flex-direction: column;
+      padding: 30px 15px;
+      gap: 20px;
+      transform: translateX(100%);
+      transition: transform 0.35s ease;
+      box-shadow: -5px 0 25px rgba(0,0,0,0.7);
+      z-index: 999;
+      border-radius: 0 0 0 20px;
     }
-
-    nav {
-      margin-top: 10px;
+    nav ul.open {
+      transform: translateX(0);
+    }
+    .hamburger {
       display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
     }
+  }
 
-    nav a {
-      margin: 5px 10px;
-      text-decoration: none;
-      color: #ccc;
-      font-weight: bold;
-      transition: 0.3s;
-      font-size: 1rem;
-    }
+  /* رسالة ترحيبية متحركة */
+  .welcome-screen {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background:
+      radial-gradient(circle at center, #fdbb2daa, transparent 70%),
+      linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+    color: #111;
+    padding: 0 20px;
+    user-select: none;
+  }
+  .welcome-screen h1 {
+    font-size: 4rem;
+    margin-bottom: 12px;
+    animation: fadeSlideIn 1.8s ease forwards;
+    letter-spacing: 4px;
+    font-weight: 900;
+    text-shadow: 0 0 20px #fdbb2d;
+  }
+  .welcome-screen p {
+    font-size: 1.9rem;
+    margin-bottom: 35px;
+    animation: fadeSlideIn 2.5s ease forwards;
+    color: #222;
+    text-shadow: 0 0 10px #b21f1f;
+  }
+  .welcome-screen button {
+    padding: 18px 48px;
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: #111;
+    background: #fdbb2d;
+    border: none;
+    border-radius: 45px;
+    cursor: pointer;
+    box-shadow: 0 0 25px #fdbb2d;
+    transition: all 0.4s ease;
+  }
+  .welcome-screen button:hover {
+    background: #b21f1f;
+    color: #fff;
+    box-shadow: 0 0 35px #b21f1f;
+    transform: scale(1.1);
+  }
+  @keyframes fadeSlideIn {
+    0% {opacity: 0; transform: translateY(40px);}
+    100% {opacity: 1; transform: translateY(0);}
+  }
 
-    nav a:hover {
-      color: var(--accent);
-    }
+  /* محتوى الموقع - أقسام */
+  main {
+    max-width: 1100px;
+    margin: auto;
+    padding: 100px 20px 50px;
+    display: none;
+  }
+  main.active {
+    display: block;
+  }
+  section {
+    margin-bottom: 80px;
+    background: rgba(255 255 255 / 0.1);
+    padding: 35px 40px 45px;
+    border-radius: 25px;
+    box-shadow: 0 0 50px #fdbb2d55;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+  }
+  section:hover {
+    box-shadow: 0 0 65px #b21f1fdd;
+    transform: translateY(-10px);
+  }
+  section h2 {
+    font-size: 2.8rem;
+    color: #fdbb2d;
+    margin-bottom: 20px;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+  section h2 i {
+    font-size: 2.8rem;
+  }
+  section p {
+    font-size: 1.2rem;
+    line-height: 1.75;
+    color: #eee;
+  }
+  /* أزرار داخل الأقسام */
+  section .btn {
+    margin-top: 25px;
+    padding: 15px 40px;
+    background: #fdbb2d;
+    color: #111;
+    font-weight: 900;
+    border: none;
+    border-radius: 40px;
+    cursor: pointer;
+    transition: background 0.4s ease, box-shadow 0.4s ease;
+    user-select: none;
+    display: inline-block;
+    text-decoration: none;
+  }
+  section .btn:hover {
+    background: #b21f1f;
+    color: #fff;
+    box-shadow: 0 0 30px #b21f1f;
+  }
 
-    section {
-      padding: 60px 20px;
-      max-width: 1000px;
-      margin: auto;
-    }
+  /* نموذج التواصل */
+  form {
+    max-width: 600px;
+    margin-top: 20px;
+  }
+  form input, form textarea {
+    width: 100%;
+    padding: 17px 22px;
+    margin-bottom: 22px;
+    border-radius: 20px;
+    border: none;
+    font-size: 1.2rem;
+    font-family: 'Cairo', sans-serif;
+    background: #3a2a1ccc;
+    color: #fff;
+    resize: vertical;
+    transition: background 0.3s ease;
+  }
+  form input:focus, form textarea:focus {
+    background: #6a1f1fdd;
+    outline: none;
+  }
+  form button {
+    width: 100%;
+    padding: 20px;
+    border-radius: 50px;
+    border: none;
+    background: #b21f1f;
+    color: #fff;
+    font-weight: 900;
+    font-size: 1.3rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  form button:hover {
+    background: #fdbb2d;
+    color: #111;
+  }
 
-    .card {
-      background: rgba(255, 255, 255, 0.05);
-      padding: 25px;
-      border-radius: 16px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.5);
-      margin-bottom: 40px;
-      transition: transform 0.3s;
-    }
+  /* الفوتر */
+  footer {
+    text-align: center;
+    padding: 25px 10px;
+    background: rgba(10, 10, 30, 0.8);
+    color: #fdbb2d;
+    font-weight: 600;
+    user-select: none;
+  }
 
-    .card:hover {
-      transform: translateY(-5px);
-    }
-
-    .card h2 {
-      color: var(--accent);
-      margin-bottom: 15px;
-      font-size: 1.8em;
-    }
-
-    .btn {
-      background: var(--accent);
-      color: #000;
-      padding: 12px 25px;
-      border: none;
-      border-radius: 10px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: transform 0.3s, background 0.3s;
-    }
-
-    .btn:hover {
-      background: #00e0ad;
-      transform: scale(1.05);
-    }
-
-    form input, form textarea {
-      width: 100%;
-      padding: 12px;
-      margin: 10px 0;
-      border: none;
-      border-radius: 8px;
-      background: #333;
-      color: #f7f4f4;
-    }
-
-    form input:focus, form textarea:focus {
-      outline: 2px solid var(--accent);
-    }
-
-    ul li {
-      margin-bottom: 10px;
-    }
-
-    footer {
-      text-align: center;
-      padding: 25px;
-      background: #111;
-      color: #aaa;
-      font-size: 0.9em;
-    }
-
-    .icon {
-      margin-right: 6px;
-      color: var(--accent);
-    }
-
-    /* Media Query for Smartphones */
-    @media (max-width: 768px) {
-      header h1 {
-        font-size: 1.5em;
-      }
-
-      nav a {
-        font-size: 0.9rem;
-        margin: 8px;
-      }
-
-      .card {
-        padding: 18px;
-      }
-
-      .card h2 {
-        font-size: 1.4em;
-      }
-
-      .btn {
-        width: 100%;
-        padding: 14px;
-        font-size: 1em;
-      }
-
-      form input, form textarea {
-        font-size: 1em;
-      }
-    }
-  </style>
+</style>
 </head>
 <body>
 
-  <header>
-    <h1>pixelBluider</h1>
-    <nav>
-      <a href="#home"><i class="fas fa-home icon"></i>Accueil</a>
-      <a href="#definition"><i class="fas fa-code icon"></i>Définition</a>
-      <a href="#about"><i class="fas fa-user icon"></i>À propos</a>
-      <a href="#features"><i class="fas fa-cogs icon"></i>Fonctionnalités</a>
-      <a href="contact"><i class="fas fa-cogs icon"></i>conecter moi</a>                                                  </a>
-      
-    </nav>
-  </header>
+<header>
+  <nav>
+    <div class="logo">الإبداع العلمي</div>
+    <div class="hamburger" id="hamburger">
+      <div></div><div></div><div></div>
+    </div>
+    <ul id="nav-links">
+      <li><a href="#home" class="active">الرئيسية</a></li>
+      <li><a href="#about">من نحن</a></li>
+      <li><a href="#services">خدماتنا</a></li>
+      <li><a href="#portfolio">أعمالنا</a></li>
+      <li><a href="#blog">المدونة</a></li>
+      <li><a href="#team">الفريق</a></li>
+      <li><a href="#faq">الأسئلة</a></li>
+      <li><a href="#contact">تواصل معنا</a></li>
+      <li><a href="#login">تسجيل الدخول</a></li>
+      <li><a href="#signup">إنشاء حساب</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- رسالة ترحيب -->
+<div class="welcome-screen" id="welcome-screen">
+  <h1>مرحباً بك في الإبداع العلمي</h1>
+  <p>موقع البرمجة والتقنية المبتكر</p>
+  <button id="enter-btn">ادخل للموقع</button>
+</div>
+
+<!-- محتوى الموقع -->
+<main id="main-content">
 
   <section id="home">
-    <div class="card">
-      <h2>Bienvenue</h2>
-      <p>
-        Bienvenue sur mon site personnel dédié au développement web. Je suis ravi de vous accueillir dans cet espace où la technologie, la créativité et la passion du code se rencontrent.
-        
-        Que vous soyez un professionnel du domaine, un passionné d'informatique ou simplement curieux, vous êtes au bon endroit. Ici, je partage mon univers numérique, mes projets, mes compétences et ma vision du développement moderne. Ce site a été conçu avec soin pour offrir une expérience fluide, agréable et inspirante.
-        
-        Prenez le temps d'explorer les différentes sections, découvrez mon parcours, mes réalisations, et n’hésitez pas à me contacter si vous souhaitez collaborer ou échanger. Ce n’est pas seulement un site web, c’est un reflet de ma passion, ligne après ligne de code.
-        
-        Encore une fois, bienvenue et bonne visite !.</p>
-    </div>
-  </section>
-
-  <section id="definition">
-    <div class="card">
-      <h2>Définition du site</h2>
-      <p>
-        Ce site web est une vitrine numérique personnelle dédiée au monde du développement. Il reflète ma passion pour la programmation, mon savoir-faire technique, ainsi que mon engagement envers l'innovation et la qualité. À travers ses différentes sections, je partage mes projets, mes compétences, mes expériences et ma vision de la technologie moderne.
-        
-        L'objectif principal de ce site est de présenter mon travail en tant que développeur, tout en offrant un espace interactif, esthétique et intuitif. Il est conçu pour s'adapter à tous les appareils, garantissant une navigation fluide aussi bien sur ordinateur que sur mobile.
-        
-        Mais au-delà d’un simple portfolio, ce site se veut aussi un espace d’inspiration et d’apprentissage, où je publierai à l’avenir des idées, des tutoriels, et des solutions à des défis techniques. C’est une extension de mon univers professionnel, une invitation à découvrir mon parcours, et une passerelle vers de futures collaborations.
-        
-        Bienvenue dans mon monde numérique, construit avec passion, ligne de code après ligne de code..</p>
-    </div>
+    <h2><i class="fa-solid fa-house"></i> الرئيسية</h2>
+    <p>نقدم لك أحدث الحلول البرمجية والتقنية بأفضل جودة وأحدث التقنيات الحديثة.</p>
   </section>
 
   <section id="about">
-    <div class="card">
-      <h2>À propos</h2>
-      <p>Je m'appelle Soulayman, un passionné de développement web depuis plusieurs années. Mon parcours m’a permis d’acquérir des compétences solides en création de sites modernes, performants et sécurisés. Du HTML/CSS aux frameworks avancés comme React, en passant par le développement back-end avec Node.js ou PHP, je cherche toujours à apprendre et à innover.
-
-        Je suis convaincu que le code n’est pas seulement un outil technique, mais aussi un moyen de créer, de résoudre des problèmes, et d’apporter de la valeur. Chaque projet que je développe est le fruit d’une réflexion poussée, d’une attention aux détails et d’un véritable amour du travail bien fait.
-        
-        Curieux, rigoureux, et créatif, j’aime transformer des idées en solutions concrètes, tout en restant à l’écoute des besoins des utilisateurs. Ce site est l’expression directe de ma personnalité, de mes compétences et de ma volonté de contribuer activement au monde du web..</p>
-    </div>
+    <h2><i class="fa-solid fa-info-circle"></i> من نحن</h2>
+    <p>فريق متخصص في تطوير المواقع والتطبيقات باستخدام أحدث الأدوات والتقنيات البرمجية.</p>
   </section>
 
-  <section id="features">
-    <div class="card">
-      <h2>Fonctionnalités</h2>
-      <ul>
-        <li>🌈 Fond animé dynamique</li>
-        <li>📱 Design responsive adapté aux téléphones</li>
-        <li>💬 Formulaire de contact stylisé</li>
-        <li>🔐 Interface de connexion (démo)</li>
-      </ul>
-    </div>
+  <section id="services">
+    <h2><i class="fa-solid fa-cogs"></i> خدماتنا</h2>
+    <p>برمجة مواقع، تطبيقات موبايل، تصميم واجهات، تحسين الأداء، وصيانة مستمرة.</p>
   </section>
 
-    <section id="contact"> 
-     <div class="card"> 
-       <h2>conecter moi</h2>
-      <ul>
-        <li>my phon:+212 651-149570</li>
-        <li>gmail:soulaymanbag999@gmail.com</li>
-        <li>facebook:</li>
-        <li>instagram:</li>
-      </ul>
-     </div>
- </section>
-  <footer>
-    pixelBluider 
-  </footer>
+  <section id="portfolio">
+    <h2><i class="fa-solid fa-briefcase"></i> أعمالنا</h2>
+    <p>مجموعة من المشاريع الناجحة التي قمنا بتنفيذها لعملائنا في مجالات مختلفة.</p>
+  </section>
 
-</body>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>تحريك السيف مع الماوس</title>
-  <style>
-    body {
-      margin: 0;
-      overflow: hidden;
-      background-color: black;
-    }
-    #sword {
-      position: absolute;
-      width: 80px;
-      pointer-events: none;
-      transition: transform 0.05s linear;
-    }
-  </style>
-</head>
-<body>
-  <img id="sword" src="téléchargement.jpeg" alt="سيف ماين كرافت">
+  <section id="blog">
+    <h2><i class="fa-solid fa-blog"></i> المدونة</h2>
+    <p>مقالات تعليمية، نصائح وأخبار التقنية والبرمجة لتبقى على اطلاع دائم.</p>
+  </section>
 
-  <script>
-    const sword = document.getElementById('sword');
+  <section id="team">
+    <h2><i class="fa-solid fa-users"></i> الفريق</h2>
+    <p>فريق عمل مبدع ومتحمس يعمل بشغف لتقديم أفضل النتائج.</p>
+  </section>
 
-    document.addEventListener('mousemove', (e) => {
-      sword.style.left = (e.pageX - 40) + 'px';
-      sword.style.top = (e.pageY - 40) + 'px';
+  <section id="faq">
+    <h2><i class="fa-solid fa-question-circle"></i> الأسئلة المتكررة</h2>
+    <p>نجيب عن أكثر الأسئلة التي تهم عملائنا لتسهيل التعامل مع خدماتنا.</p>
+  </section>
+
+  <section id="contact">
+    <h2><i class="fa-solid fa-envelope"></i> تواصل معنا</h2>
+    <form id="contact-form" action="#" method="post">
+      <input type="text" name="name" placeholder="الاسم الكامل" required />
+      <input type="email" name="email" placeholder="البريد الإلكتروني" required />
+      <textarea name="message" rows="5" placeholder="رسالتك" required></textarea>
+      <button type="submit">إرسال</button>
+    </form>
+  </section>
+
+  <section id="login">
+    <h2><i class="fa-solid fa-right-to-bracket"></i> تسجيل الدخول</h2>
+    <form action="#" method="post">
+      <input type="email" placeholder="البريد الإلكتروني" required />
+      <input type="password" placeholder="كلمة المرور" required />
+      <button type="submit">دخول</button>
+    </form>
+  </section>
+
+  <section id="signup">
+    <h2><i class="fa-solid fa-user-plus"></i> إنشاء حساب</h2>
+    <form action="#" method="post">
+      <input type="text" placeholder="الاسم الكامل" required />
+      <input type="email" placeholder="البريد الإلكتروني" required />
+      <input type="password" placeholder="كلمة المرور" required />
+      <button type="submit">إنشاء</button>
+    </form>
+  </section>
+
+</main>
+
+<footer>
+  &copy; 2025 الإبداع العلمي | جميع الحقوق محفوظة
+</footer>
+
+<script>
+  // هاندلر زر الدخول من شاشة الترحيب
+  const enterBtn = document.getElementById('enter-btn');
+  const welcomeScreen = document.getElementById('welcome-screen');
+  const mainContent = document.getElementById('main-content');
+
+  enterBtn.addEventListener('click', () => {
+    welcomeScreen.style.display = 'none';
+    mainContent.classList.add('active');
+  });
+
+  // هامبرغر قائمة الهاتف
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('nav-links');
+
+  hamburger.addEventListener('click', () => {
+    navLinks.classList.toggle('open');
+  });
+
+  // تفعيل رابط القائمة النشطة
+  const links = navLinks.querySelectorAll('a');
+  links.forEach(link => {
+    link.addEventListener('click', () => {
+      links.forEach(l => l.classList.remove('active'));
+      link.classList.add('active');
+      if(navLinks.classList.contains('open')) {
+        navLinks.classList.remove('open');
+      }
     });
-  </script>
+  });
+</script>
+
 </body>
-</html>
-
-
-
-
-
-
-
 </html>
