@@ -1,0 +1,11 @@
+
+
+body {
+    background-image: url("4be1a0ff-5661-447e-945a-dd9157d2f24e.png");
+    background-size: cover;         /* تجعل الصورة تغطي الخلفية بالكامل */
+    background-position: center;    /* توسيط الصورة */
+    background-repeat: no-repeat;   /* منع التكرار */
+    height: 50vh;                  /* تجعل الخلفية تغطي كامل الشاشة */
+    margin: 0;
+  }
+  
