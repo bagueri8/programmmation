@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Soulayman - Développeur Créatif</title>
+<style>
+  /* خطوط أساسية */
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap');
+  * {
+    margin: 0; padding: 0; box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+  }
+  body {
+    background: linear-gradient(270deg, #1a237e, #0d47a1, #1565c0, #1a237e);
+    background-size: 800% 800%;
+    animation: backgroundShift 25s ease infinite;
+    color: #e0e0e0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  @keyframes backgroundShift {
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+  }
+  /* الهيدر */
+  header {
+    position: fixed;
+    width: 100%;
+    top: 0; left: 0;
+    background: rgba(15, 32, 64, 0.85);
+    padding: 20px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 0 10px rgba(0,0,0,0.6);
+    z-index: 1000;
+  }
+  header h1 {
+    font-weight: 600;
+    font-size: 1.8rem;
+    letter-spacing: 3px;
+    color: #64b5f6;
+  }
+  nav a {
+    color: #b3c7f9;
+    text-decoration: none;
+    margin-left: 25px;
+    font-weight: 500;
+    transition: color 0.3s ease;
+    position: relative;
+  }
+  nav a::after {
+    content: '';
+    position: absolute;
+    width: 0%; height: 2px;
+    background: #64b5f6;
+    bottom: -5px; left: 0;
+    transition: 0.3s;
+  }
+  nav a:hover, nav a.active {
+    color: #82b1ff;
+  }
+  nav a:hover::after, nav a.active::after {
+    width: 100%;
+  }
+
+  /* أقسام الصفحة */
+  section {
+    max-width: 900px;
+    margin: 120px auto 80px;
+    padding: 0 20px;
+  }
+  section h2 {
+    font-size: 2.6rem;
+    margin-bottom: 20px;
+    color: #90caf9;
+    border-left: 5px solid #42a5f5;
+    padding-left: 12px;
+    filter: drop-shadow(0 0 3px #42a5f5);
+  }
+  section p {
+    font-size: 1.15rem;
+    line-height: 1.7;
+    color: #d0d0d0;
+    max-width: 720px;
+    margin-bottom: 20px;
+  }
+
+  /* قسم النبذة */
+  #about p {
+    font-weight: 300;
+  }
+
+  /* قسم الخدمات */
+  #services ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+  }
+  #services li {
+    background: rgba(255 255 255 / 0.1);
+    padding: 18px 28px;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(255 255 255 / 0.1);
+    font-weight: 600;
+    flex: 1 1 250px;
+    text-align: center;
+    transition: background 0.3s ease;
+    cursor: default;
+  }
+  #services li:hover {
+    background: rgba(100 181 246 / 0.7);
+    box-shadow: 0 0 20px #64b5f6;
+  }
+
+  /* قسم المشاريع */
+  #projects {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(260px,1fr));
+    gap: 25px;
+  }
+  .project-card {
+    background: rgba(255 255 255 / 0.1);
+    padding: 18px 20px;
+    border-radius: 14px;
+    box-shadow: 0 0 12px rgba(255 255 255 / 0.1);
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .project-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 0 25px #42a5f5;
+  }
+  .project-title {
+    color: #82b1ff;
+    font-weight: 600;
+    font-size: 1.25rem;
+    margin-bottom: 8px;
+    filter: drop-shadow(0 0 4px #42a5f5);
+  }
+  .project-desc {
+    font-weight: 300;
+    color: #cfd8dc;
+  }
+
+  /* قسم الاتصال */
+  #contact form {
+    max-width: 600px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  #contact input, #contact textarea {
+    background: rgba(255 255 255 / 0.1);
+    border: none;
+    padding: 14px 20px;
+    border-radius: 12px;
+    color: #e0e0e0;
+    font-size: 1.1rem;
+    resize: vertical;
+    box-shadow: inset 0 0 8px rgba(0,0,0,0.3);
+    transition: background 0.3s ease;
+  }
+  #contact input:focus, #contact textarea:focus {
+    background: rgba(100 181 246 / 0.5);
+    outline: none;
+    box-shadow: 0 0 15px #64b5f6;
+  }
+  #contact button {
+    padding: 16px 0;
+    border: none;
+    border-radius: 14px;
+    background: #42a5f5;
+    color: white;
+    font-size: 1.3rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 0 18px #42a5f5;
+    transition: background 0.3s ease;
+  }
+  #contact button:hover {
+    background: #1e88e5;
+  }
+
+  /* فوتر */
+  footer {
+    text-align: center;
+    padding: 25px 15px;
+    background: rgba(15, 32, 64, 0.85);
+    color: #90caf9;
+    font-weight: 300;
+    font-size: 1rem;
+    user-select: none;
+    margin-top: auto;
+  }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    header h1 {
+      font-size: 1.4rem;
+    }
+    nav a {
+      margin-left: 15px;
+      font-size: 0.9rem;
+    }
+    section {
+      margin: 100px 15px 60px;
+      padding: 0 10px;
+    }
+    section h2 {
+      font-size: 2rem;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Soulayman</h1>
+  <nav>
+    <a href="#about" class="active">À propos</a>
+    <a href="#services">Services</a>
+    <a href="#projects">Projets</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<section id="about">
+  <h2>À propos de moi</h2>
+  <p>Je suis Soulayman, développeur passionné et créatif, spécialisé dans la création d'expériences numériques modernes et performantes. Je transforme les idées en solutions digitales élégantes et efficaces.</p>
+</section>
+
+<section id="services">
+  <h2>Mes Services</h2>
+  <ul>
+    <li>Développement Web sur mesure</li>
+    <li>Applications mobiles hybrides</li>
+    <li>Design UI/UX moderne</li>
+    <li>Intégration d'API & systèmes</li>
+  </ul>
+</section>
+
+<section id="projects">
+  <h2>Projets récents</h2>
+  <div class="project-card">
+    <div class="project-title">Portfolio Interactif</div>
+    <div class="project-desc">Un site dynamique présentant mes compétences avec animations et design responsive.</div>
+  </div>
+  <div class="project-card">
+    <div class="project-title">Plateforme e-commerce</div>
+    <div class="project-desc">Solution complète pour boutiques en ligne avec paiement sécurisé.</div>
+  </div>
+  <div class="project-card">
+    <div class="project-title">Dashboard Statistiques</div>
+    <div class="project-desc">Tableau de bord temps réel avec graphiques interactifs.</div>
+  </div>
+  <div class="project-card">
+    <div class="project-title">Application Mobile</div>
+    <div class="project-desc">App hybride multi-plateforme développée avec Flutter.</div>
+  </div>
+</section>
+
+<section id="contact">
+  <h2>Contactez-moi</h2>
+  <form onsubmit="alert('Merci pour votre message ! Je vous répondrai bientôt.'); return false;">
+    <input type="text" placeholder="Votre nom" required />
+    <input type="email" placeholder="Votre email" required />
+    <textarea rows="5" placeholder="Votre message" required></textarea>
+    <button type="submit">Envoyer</button>
+  </form>
+</section>
+
+<footer>
+  &copy; 2025 Soulayman - Tous droits réservés
+</footer>
+
+<script>
+  // تفعيل تمييز القسم الحالي في القائمة عند التمرير
+  const sections = document.querySelectorAll('section');
+  const navLinks = document.querySelectorAll('nav a');
+
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop - 150;
+      if (pageYOffset >= sectionTop) current = section.getAttribute('id');
+    });
+    navLinks.forEach
